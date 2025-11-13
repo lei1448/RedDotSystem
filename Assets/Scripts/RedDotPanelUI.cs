@@ -43,32 +43,16 @@ public class RedDotPanelUI : MonoBehaviour
         ShowPanel(node);
     }
 
-    // public void Back()
-    // {
-    //     if (m_stack.Count > 0)
-    //     {
-    //         m_stack.Pop();
-    //     }
-
-    //     if (m_stack.Count == 0)
-    //     {
-    //         m_redDotPanel.SetActive(false);
-    //         return;
-    //     }
-
-    //     ShowPanel(m_stack.Peek());
-    // }
-
     public void Back()
     {
-        if (m_isBackBusy) return; // 如果正在忙，阻止点击
+        if (m_isBackBusy) return;
         StartCoroutine(BackRoutine());
     }
 
-    // 3. 真正的逻辑在协程里
+    //防止帧内误判点击
     private IEnumerator BackRoutine()
     {
-        m_isBackBusy = true; // 设置为“忙碌”
+        m_isBackBusy = true;
 
         if (m_stack.Count > 0)
         {
@@ -83,11 +67,9 @@ public class RedDotPanelUI : MonoBehaviour
         {
             ShowPanel(m_stack.Peek());
         }
-        
-        // 4. 等待一帧结束
-        yield return null; 
 
-        m_isBackBusy = false; // 解除“忙碌”
+        yield return null; 
+        m_isBackBusy = false; 
     }
     private void ShowPanel(RedDotNode node)
     {
@@ -109,7 +91,7 @@ public class RedDotPanelUI : MonoBehaviour
             }
 
             m_childViews[num].gameObject.SetActive(true);
-            m_childViews[num].Init(child.Key);
+            m_childViews[num].Init(child.Key, child.IsRed, child.BranchCount);
 
             num++;
         }

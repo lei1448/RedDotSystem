@@ -18,9 +18,9 @@ public class MainMenuRedDotGenerator : MonoBehaviour
     public void Generate()
     {
         foreach(RedDotNode redDotNode in RedDotManager.Instance.GetNodesByFloor(2))
-        {
-            RedDotView redDotView = Instantiate(m_redDotPre, m_parent);
-            redDotView.Init(redDotNode.Key);
-        }
+    {
+        RedDotView redDotView = Instantiate(m_redDotPre, m_parent);
+        redDotView.Init(redDotNode.Key, redDotNode.IsRed, redDotNode.BranchCount);
+    }
     }
 }

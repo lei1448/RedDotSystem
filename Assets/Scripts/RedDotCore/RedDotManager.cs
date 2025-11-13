@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class RedDotManager : MonoBehaviour
 {
     [SerializeField] private RedDotNodeConfig m_rootConfig;
-    [SerializeField] private UnityEvent InitializedEvent;
+    public UnityEvent InitializedEvent;
     private RedDotNode m_root;
     private Dictionary<string, RedDotNode> m_nodes = new();
 
@@ -48,6 +48,8 @@ public class RedDotManager : MonoBehaviour
 
             RedDotNode node = new(entry.Key);
             m_nodes.Add(entry.Key, node);
+
+            node.SetDisplayType(entry.DisplayType);
 
             if (string.IsNullOrEmpty(entry.ParentKey))
             {
